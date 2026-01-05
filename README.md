@@ -96,6 +96,38 @@ Once the update source is configured, you can check for updates at any time by:
 1.  Opening **Gear Lever**.
 2.  Clicking the **Check for updates** button.
 
+#### Nix
+
+If you use NixOS or Nix, you can install this package by following these steps:
+
+1. Add this package to your `flake.nix` inputs:
+```
+{
+  description = "My Flake";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    zalo = {
+      url = "github:justanoobcoder/zalo-for-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+}
+```
+2. Install the package in your `configuration.nix`:
+```
+environment.systemPackages = [
+  inputs.zalo.packages.${stdenv.hostPlatform.system}.default
+];
+```
+Or in your `home.nix`:
+```
+home.packages = with pkgs; [
+  inputs.zalo.packages.${stdenv.hostPlatform.system}.default
+];
+```
+Note: Remember to add `inputs` argument in those files.
+
 ### Build from Source
 
 Prerequisites:
