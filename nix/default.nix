@@ -1,20 +1,21 @@
 { lib
 , appimageTools
 , fetchurl
+, nixpkgs
 }:
 
 let
   version = "25.11.20";
   pname = "zalo";
 
-  src = fetchurl {
+  src = nixpkgs.fetchurl {
     url = "https://github.com/doandat943/zalo-for-linux/releases/download/${version}/Zalo-${version}+ZaDark-25.10-b38f07c.AppImage";
     sha256 = "sha256-fNq0IiP05Fch1HXJzxk+GvOl6+s8OhDA89wi5CcRc28=";
   };
 
-  appimageContents = appimageTools.extractType1 { inherit pname version src; };
+  appimageContents = nixpkgs.appimageTools.extractType1 { inherit pname version src; };
 in
-appimageTools.wrapType2 rec {
+nixpkgs.appimageTools.wrapType2 rec {
   inherit pname version src;
 
   extraInstallCommands = ''
