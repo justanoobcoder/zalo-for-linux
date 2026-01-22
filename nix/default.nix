@@ -2,13 +2,13 @@
   lib,
   nixpkgs,
 }: let
-  version = "25.12.11";
+  version = "26.1.10";
   zadark_version = "26.1-b38f07c";
   pname = "zalo";
 
   src = nixpkgs.fetchurl {
     url = "https://github.com/doandat943/zalo-for-linux/releases/download/${version}/Zalo-${version}+ZaDark-${zadark_version}.AppImage";
-    sha256 = "sha256-8Xfz9XXpUKn+Kf3xJbUjNmSgOC0aJYFc1SUPCF8W5gI=";
+    sha256 = "sha256-5lBbPuVIo1AmJjABBQAEjaKzSqrwyKCdZlayOjv9dSk=";
   };
 
   appimageContents = nixpkgs.appimageTools.extractType1 {inherit pname version src;};
